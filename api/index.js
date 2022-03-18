@@ -50,8 +50,46 @@ app.get('/api/documents', async (req, res) => {
 });
 app.post('/api/storj/upload', async (req, res) => {
 
-    const userDocuments = await documentInfo.find({ email: req.body.email })
-    res.send(userDocuments);
+    // const userDocuments = await documentInfo.find({ email: req.body.email })
+    // res.send(userDocuments);
+    try {
+        console.log(req.file);
+        console.log(req.body);
+        const userDocuments = await documentInfo.find({ email: req.body.email })
+        if (userDocuments.length < 5) {
+            const file = fs.readFileSync(req.file.path);
+            const params = {
+                Bucket: "demo-bucket",
+                Key: req.body.key,
+                Body: file,
+            };
+            const result = await s3
+                .upload(params, {
+                    partSize: 64 * 1024 * 1024,
+                })
+                .promise();
+
+            await fs.unlink(req.file.path, (err) => {
+                if (err) throw err;
+                console.log("successfully deleted");
+            });
+            const { Bucket, ETag, Key, Location, key } = result;
+            const documentData = await new documentInfo({
+                Bucket, ETag, Key, Location, key, email: req.body.email, type: req.body.type
+            }).save()
+            const uploadedDocument = await documentInfo.findOne({ key: documentData.key })
+            return res.status(200).json({ uploadedDocument, message: "Document Uploaded Successfully" })
+
+            // res.send(result);
+
+
+        } else {
+            return res.status(401).json({ error: "You exceeded the upload limit!" })
+        }
+    } catch (err) {
+        console.log("err", err);
+        res.send(err);
+    }
 });
 
 // app.post(
