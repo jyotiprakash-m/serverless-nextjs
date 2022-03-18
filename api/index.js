@@ -72,13 +72,13 @@ app.post('/api/storj/upload', async (req, res) => {
                 Bucket, ETag, Key, Location, key, email: req.body.email, type: req.body.type
             }).save()
             const uploadedDocument = await documentInfo.findOne({ key: documentData.key })
-            return res.status(200).json({ uploadedDocument, message: "Document Uploaded Successfully" })
+            // return res.status(200).json({ uploadedDocument, message: "Document Uploaded Successfully" })
 
-            // res.send(result);
+            res.send(result);
 
 
         } else {
-            return res.status(401).json({ error: "You exceeded the upload limit!" })
+            res.status(401).json({ error: "You exceeded the upload limit!" })
         }
     } catch (err) {
         console.log("err", err);
