@@ -55,7 +55,7 @@ app.use(cors());
 app.use(morgan("combined"));
 
 app.post(
-    "/storj/upload",
+    "api/storj/upload",
     upload.single("doc"),
     async function (req, res, next) {
         try {
@@ -99,7 +99,7 @@ app.post(
     }
 );
 
-app.get("/storj/:key", async (req, res) => {
+app.get("api/storj/:key", async (req, res) => {
     const params = {
         Bucket: "demo-bucket",
         Key: req.params.key,
