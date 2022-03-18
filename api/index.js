@@ -8,7 +8,7 @@ const { v4 } = require('uuid');
 const S3 = require("aws-sdk/clients/s3");
 // const fs = require("fs");
 const mongoose = require("mongoose")
-const documentInfo = require("./models/documentInfoModel")
+const documentInfo = require("../models/documentInfoModel")
 require("dotenv").config();
 // const upload = multer({ dest: "uploads/" });
 
