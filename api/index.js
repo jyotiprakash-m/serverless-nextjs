@@ -48,11 +48,12 @@ app.get('/api/documents', async (req, res) => {
     const userDocuments = await documentInfo.find()
     res.send(userDocuments);
 });
-app.post('/api/storj/upload', upload.single("doc"), async (req, res) => {
+app.post('/api/storj/upload', async (req, res) => {
     try {
         console.log(req.file);
         console.log(req.body);
         const userDocuments = await documentInfo.find({ email: req.body.email })
+        res.send(userDocuments, req.body, req.file);
         // if (userDocuments.length < 5) {
         //     const file = fs.readFileSync(req.file.path);
         //     const params = {
