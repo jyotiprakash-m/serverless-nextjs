@@ -39,7 +39,7 @@ app.get('/api', (req, res) => {
 //     const { slug } = req.params;
 //     res.end(`Item: ${slug} - ${accessKeyId} - ${secretAccessKey} - ${endpoint} - `);
 // });
-app.get('/api/item/:key', (req, res) => {
+app.get('/api/storj/:key', (req, res) => {
     const params = {
         Bucket: "demo-bucket",
         Key: req.params.key,
