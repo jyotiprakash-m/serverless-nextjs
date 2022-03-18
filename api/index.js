@@ -32,13 +32,13 @@ app.get('/api', (req, res) => {
     res.end(`Hello! Go to item: <a href="${path}">${path}</a>`);
 });
 
-app.get('/api/item/:slug', (req, res) => {
-    const accessKeyId = process.env.ACCESS_KEY_ID;
-    const secretAccessKey = process.env.SECRET_ACCESS_KEY;
-    const endpoint = process.env.ENDPOINT;
-    const { slug } = req.params;
-    res.end(`Item: ${slug} - ${accessKeyId} - ${secretAccessKey} - ${endpoint} - `);
-});
+// app.get('/api/item/:slug', (req, res) => {
+//     const accessKeyId = process.env.ACCESS_KEY_ID;
+//     const secretAccessKey = process.env.SECRET_ACCESS_KEY;
+//     const endpoint = process.env.ENDPOINT;
+//     const { slug } = req.params;
+//     res.end(`Item: ${slug} - ${accessKeyId} - ${secretAccessKey} - ${endpoint} - `);
+// });
 app.get('/api/item/:key', (req, res) => {
     const params = {
         Bucket: "demo-bucket",
