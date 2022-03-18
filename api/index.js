@@ -4,13 +4,13 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const helmet = require("helmet");
 const morgan = require("morgan");
-// const multer = require("multer");
+const multer = require("multer");
 const S3 = require("aws-sdk/clients/s3");
 const fs = require("fs");
 const mongoose = require("mongoose")
 const documentInfo = require("../models/documentInfoModel")
 require("dotenv").config();
-// const upload = multer({ dest: "uploads/" });
+const upload = multer({ dest: "uploads/" });
 
 const accessKeyId = process.env.ACCESS_KEY_ID;
 const secretAccessKey = process.env.SECRET_ACCESS_KEY;
@@ -48,7 +48,7 @@ app.get('/api/documents', async (req, res) => {
     const userDocuments = await documentInfo.find()
     res.send(userDocuments);
 });
-app.post('/api/storj/upload', async (req, res) => {
+app.post('/api/storj/upload', upload.single("doc"), async (req, res) => {
 
     // const userDocuments = await documentInfo.find({ email: req.body.email })
     // res.send(userDocuments);
