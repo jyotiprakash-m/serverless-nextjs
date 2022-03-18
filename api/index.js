@@ -63,10 +63,10 @@ app.post('/api/storj/upload', async (req, res) => {
                 })
                 .promise();
 
-            await fs.unlink(req.file.path, (err) => {
-                if (err) throw err;
-                console.log("successfully deleted");
-            });
+            // await fs.unlink(req.file.path, (err) => {
+            //     if (err) throw err;
+            //     console.log("successfully deleted");
+            // });
             const { Bucket, ETag, Key, Location, key } = result;
             const documentData = await new documentInfo({
                 Bucket, ETag, Key, Location, key, email: req.body.email, type: req.body.type
