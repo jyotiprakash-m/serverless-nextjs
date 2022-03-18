@@ -113,3 +113,5 @@ app.get('/api/storj/:key', (req, res) => {
 // app.listen(PORT, () => {
 //   console.log(`listening on port ${PORT}`);
 // });
+
+module.exports = app;
