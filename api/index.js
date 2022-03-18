@@ -55,7 +55,7 @@ app.use(cors());
 app.use(morgan("combined"));
 
 app.post(
-    "api/storj/upload",
+    '/api/storj/upload',
     upload.single("doc"),
     async function (req, res, next) {
         try {
