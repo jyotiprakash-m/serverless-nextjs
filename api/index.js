@@ -40,13 +40,12 @@ app.get('/api/item/:slug', (req, res) => {
     res.end(`Item: ${slug} - ${accessKeyId} - ${secretAccessKey} - ${endpoint} - `);
 });
 
-app.get("api/storj/:key", async (req, res) => {
+app.get('api/storj/:key', (req, res) => {
     const params = {
         Bucket: "demo-bucket",
         Key: req.params.key,
     };
     const url = s3.getSignedUrl("getObject", params);
-    console.log("url", url);
 
     res.send(url);
 });
