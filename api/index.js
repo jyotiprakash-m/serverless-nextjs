@@ -7,13 +7,19 @@ const { v4 } = require('uuid');
 // const multer = require("multer");
 const S3 = require("aws-sdk/clients/s3");
 // const fs = require("fs");
-// const mongoose = require("mongoose")
+const mongoose = require("mongoose")
+const documentInfo = require("./models/documentInfoModel")
 require("dotenv").config();
 // const upload = multer({ dest: "uploads/" });
 
 const accessKeyId = process.env.ACCESS_KEY_ID;
 const secretAccessKey = process.env.SECRET_ACCESS_KEY;
 const endpoint = process.env.ENDPOINT;
+
+mongoose.connect(process.env.MONGODB_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+}).then(res => console.log("DB Connected")).catch(err => console.log(err))
 
 const s3 = new S3({
     accessKeyId,
@@ -24,6 +30,12 @@ const s3 = new S3({
     connectTimeout: 0,
     httpOptions: { timeout: 0 },
 });
+app.get('/api/documents', async (req, res) => {
+
+    const userDocuments = await documentInfo.find()
+    res.send(userDocuments);
+});
+
 
 app.get('/api', (req, res) => {
     const path = `/api/item/${v4()}`;
@@ -48,6 +60,7 @@ app.get('/api/storj/:key', (req, res) => {
 
     res.send(url);
 });
+
 
 // app.get('api/storj/:key', (req, res) => {
 //     const params = {
