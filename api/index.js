@@ -39,8 +39,7 @@ app.get('/api/item/:slug', (req, res) => {
     const { slug } = req.params;
     res.end(`Item: ${slug} - ${accessKeyId} - ${secretAccessKey} - ${endpoint} - `);
 });
-
-app.get('api/storj/:key', (req, res) => {
+app.get('/api/item/:key', (req, res) => {
     const params = {
         Bucket: "demo-bucket",
         Key: req.params.key,
@@ -49,5 +48,15 @@ app.get('api/storj/:key', (req, res) => {
 
     res.send(url);
 });
+
+// app.get('api/storj/:key', (req, res) => {
+//     const params = {
+//         Bucket: "demo-bucket",
+//         Key: req.params.key,
+//     };
+//     const url = s3.getSignedUrl("getObject", params);
+
+//     res.send(url);
+// });
 
 module.exports = app;
